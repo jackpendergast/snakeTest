@@ -48,7 +48,7 @@ pipeline {
                             withSonarQubeEnv('sonarqube') { // Use the SonarQube environment defined in Jenkins
                                 sh """
                                 ${scannerHome}/bin/sonar-scanner \
-                                    -Dsonar.projectKey=snakeTest \
+                                    -Dsonar.projectKey=snaketest \
                                     -Dsonar.sources=.
                                 """
                             }
@@ -90,7 +90,7 @@ pipeline {
             steps {
                 script {
                     // Find and stop any Docker container using port 80 so there isn't any conflicts when deploying.
-                        sh '''
+                        sh """
                         CONTAINER_ID=$(docker ps -q --filter "publish=80")
                         if [ -n "$CONTAINER_ID" ]; then
                             echo "Stopping container using port 80: $CONTAINER_ID"
@@ -99,7 +99,7 @@ pipeline {
                         else
                             echo "No container using port 80."
                         fi
-                        '''
+                        """
                 }
             }
         }
