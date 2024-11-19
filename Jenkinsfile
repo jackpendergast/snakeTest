@@ -5,7 +5,7 @@ pipeline {
         ServerName = 'ubuntu-AppServer-3120' // Server label
         DockerhubCredentials = 'dockerhub_credentials' // DockerHub credentials ID
         SnykToken = 'synk_api' // Snyk API token
-        GithubRepo = "penjack/chatapp" // Name of the Github repository
+        GithubRepo = "penjack/snakeTest" // Name of the Github repository
     }
 
     stages {
@@ -48,7 +48,7 @@ pipeline {
                             withSonarQubeEnv('sonarqube') { // Use the SonarQube environment defined in Jenkins
                                 sh """
                                 ${scannerHome}/bin/sonar-scanner \
-                                    -Dsonar.projectKey=chatapp \
+                                    -Dsonar.projectKey=snakeTest \
                                     -Dsonar.sources=.
                                 """
                             }
