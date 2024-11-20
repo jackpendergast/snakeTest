@@ -6,7 +6,7 @@ pipeline {
         DockerhubCredentials = 'dockerhub_credentials' // DockerHub credentials ID
         SnykToken = 'synk_api' // Snyk API token
         GithubRepo = "penjack/snaketest" // Name of the Github repository
-        def sonarProjectKey = 'snaketest'
+        SONAR_PROJECT_KEY = 'snaketest'
     }
 
     stages {
@@ -45,11 +45,11 @@ pipeline {
                     steps {
                         script {
                             // Perform dynamic code analysis using SonarQube
-                            def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'                            
+                            def scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'                     
                             withSonarQubeEnv('sonarqube') { // Use the SonarQube environment defined in Jenkins
                                 sh """
                                 ${scannerHome}/bin/sonar-scanner \
-                                    -Dsonar.projectKey=$(sonarProjectKey) \
+                                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                                     -Dsonar.sources=.
                                 """
                             }
